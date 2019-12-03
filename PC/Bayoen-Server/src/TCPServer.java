@@ -1,21 +1,27 @@
-import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 class TCPServer{
-	static ServerSocket socket;
-	static int devices;
+	static ServerSocket welcomeSocket;
+	ClientManager clientManager;
+	
+	public void start() throws Exception {
 
-	public static void main(String argv[]) throws Exception {
-		devices = 0;
-		socket = new ServerSocket(6789);
+		welcomeSocket = new ServerSocket(6789);
+		//clientManager = new ClientManager();
+		//clientManager.run();
+		ExecutorService executorService = Executors.newFixedThreadPool(2);
 		
 		while (true) {
-			Socket connectionSocket = socket.accept();
-			System.out.println(connectionSocket.getLocalAddress());
-			
+			Socket connectionSocket = welcomeSocket.accept();
+			System.out.println("connect");
+
 			Client client = new Client(connectionSocket);
-			client.start();
+			//clientManager.addClient(client);
+			executorService.execute(client);
+			//client.start();
+			
 			   /*BufferedReader inFromClient =
 			    new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 			   
