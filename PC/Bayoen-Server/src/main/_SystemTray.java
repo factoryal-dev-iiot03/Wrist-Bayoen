@@ -7,7 +7,6 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -23,16 +22,14 @@ public class _SystemTray{
 	public _SystemTray(){	
 		
 		systemTray = SystemTray.getSystemTray();
-		
 		try {
-			image_play = ImageIO.read(new File("resource\\baseline_play_arrow_white_48dp.png"));
-			image_wait = ImageIO.read(new File("resource\\baseline_pause_white_48dp.png"));
+			image_play = ImageIO.read(getClass().getClassLoader().getResource("baseline_play_arrow_white_48dp.png"));
+			image_wait = ImageIO.read(getClass().getClassLoader().getResource("baseline_pause_white_48dp.png"));
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-				//Toolkit.getDefaultToolkit().getImage("baseline_play_arrow_white_48dp.png");
-		
+				
 		PopupMenu popup = new PopupMenu();
 		MenuItem disconnect = new MenuItem("Disconnect");
 		MenuItem exit = new MenuItem("Exit");
@@ -42,9 +39,7 @@ public class _SystemTray{
 
 		disconnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(server.disconnect()) {
-					//displayMessage("Disconnect");
-				}
+				server.disconnect();
 			}
 		});
 		exit.addActionListener(new ActionListener() {
