@@ -8,14 +8,12 @@ public class Client extends Thread{
 	String clientSentence;
 	String capitalizedSentence;
 	Socket connectionSocket;
-	//_SystemTray tray;
 	
 	KeyboardControl keyboardControl;
 	
 	public Client(Socket socket) {
 		this.connectionSocket = socket;
 		keyboardControl = new KeyboardControl();
-		//this.tray = tray;
 	}
 	
 	public void run() {
@@ -35,7 +33,6 @@ public class Client extends Thread{
 				capitalizedSentence = clientSentence.toUpperCase() + '\n';
 				outToClient.writeBytes(capitalizedSentence);
 				this.sleep(10);
-				//System.out.println(clientSentence.equals("-1"));
 			}while(!clientSentence.equals("-1"));
 			
 			connectionSocket.close();
