@@ -1,6 +1,10 @@
 
 public class Main {
 	static public void main(String [] args) throws Exception {
-		(new TCPServer()).start();
+		_SystemTray systemTray = _SystemTray.getTray();
+		TCPServer server = new TCPServer();
+		systemTray.setAlarm(server);
+		server.setTray(systemTray.getTray());
+		server.start();
 	}
 }

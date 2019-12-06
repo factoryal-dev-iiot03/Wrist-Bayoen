@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ClientManager implements Runnable{
 	ArrayList<Client> clients;
@@ -16,7 +15,7 @@ public class ClientManager implements Runnable{
 			clients.add(client);
 			devices++;
 		} else {
-			client.stopThread();
+			//client.stopThread();
 		}
 	}
 	
