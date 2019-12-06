@@ -11,6 +11,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         if message=='-1': break
         message += '\n'
         s.sendall(bytes(message, 'utf-8'))
+        s.timeout(5.0)
         data = s.recv(1024) #.decode('utf-8')
         data.decode('utf-8')
         print('Received', repr(data))
