@@ -105,42 +105,42 @@ int main(int argc, char* argv[])
 	if(Lb && Ltb == 1)
 	{
 		printf("f\n");
-        fprintf(sock, 'f')
+        write(sock, "f\n", 2);
 		Ltb = 0;
 	}
 
 	if(!Lb && Ltb ==0)
 	{
 		printf("F\n");
-        fprintf(sock, 'F')
+        write(sock, "F\n", 2);
 		Ltb = 1;
 	}
 
 	if(!Rb && Rtb == 0)
 	{
 		printf("H\n");
-        fprintf(sock, 'H')
+        write(sock, "H\n", 2);
 		Rtb = 1;
 	}
 
     if( Rb && Rtb == 1)
 	{
 		printf("h\n");
-        fprintf(sock, 'h')
+        write(sock, "h\n", 2);
 		Rtb = 0;
 	}
 
 	if(adcX1 > 3000 && SX1 == 0)
     {
         printf("D\n");
-        fprintf(sock, 'D')
+        write(sock, "D\n", 2);
         SX1 = 1;
     }
     
     if(adcX1 < 3000 && SX1 == 1)
     {
         printf("d\n");
-        fprintf(sock, 'd')
+        write(sock, "d\n", 2);
         SX1 = 0;
     }
 
@@ -148,14 +148,14 @@ int main(int argc, char* argv[])
 	if(adcX1 < 1000 && CX1 == 0)	
     {
         printf("A\n");
-        fprintf(sock, 'A')
+        write(sock, "A\n", 2);
         CX1 =1;
     }
 
     if( adcX1 > 1000 && CX1 == 1)
     {
         printf("a\n");
-        fprintf(sock, 'a')
+        write(sock, "a\n", 2);
         CX1 = 0;
     }
 
@@ -163,14 +163,14 @@ int main(int argc, char* argv[])
 	if(adcY1 > 3000 && SY1 == 0)
     {
         printf("W\n");
-        fprintf(sock, 'W')
+        write(sock, "W\n", 2);
         SY1 = 1;
     }
 
     if( adcY1 < 3000 && SY1 == 1)
     {
         printf("w\n");
-        fprintf(sock, 'w')
+        write(sock, "w\n", 2);
         SY1 = 0;
     }
 
@@ -179,28 +179,28 @@ int main(int argc, char* argv[])
 	if(adcY1 < 1000 && CY1 == 0)
     {
         printf("S\n");
-        fprintf(sock, 'S')
+        write(sock, "S\n", 2);
         CY1 = 1;
     }
 
     if(adcY1 > 1000 && CY1 == 1)
     {
         printf("s\n");
-        fprintf(sock, 's')
+        write(sock, "s\n", 2);
         CY1 = 0;
     }
 
 	if(adcX2 > 3000 && SX2 == 0)
     {
-        printf("X\n");
-        fprintf(sock, 'X')
+        printf("L\n");
+        write(sock, "L\n", 2);
         SX2 = 1;
     }
 
     if(adcX2 < 3000 && SX2 == 1)
     {
-        printf("x\n");
-        fprintf(sock, 'x')
+        printf("l\n");
+        write(sock, "l\n", 2);
         SX2 = 0;
     }
 
@@ -208,14 +208,14 @@ int main(int argc, char* argv[])
 	if(adcX2 < 1000 && CX2 == 0)
     {
         printf("J\n");
-        fprintf(sock, 'J')
+        write(sock, "J\n", 2);
         CX2 = 1;
     }
 
     if(adcX2 > 1000 && CX2 == 1)
     {
         printf("j\n");
-        fprintf(sock, 'j') 
+        write(sock, "j\n", 2);
         CX2 = 0;
     }
 
@@ -223,14 +223,14 @@ int main(int argc, char* argv[])
 	if(adcY2 > 3000 && SY2 == 0)
     {
         printf("I\n");
-        fprintf(sock, 'I')
+        write(sock, "I\n", 2);
         SY2 = 1;
     }
 
     if(adcY2 < 3000 && SY2 == 1)
     {
         printf("i\n");
-        fprintf(sock, 'i')
+        write(sock, "i\n", 2);
         SY2 = 0;
     }
 
@@ -238,18 +238,18 @@ int main(int argc, char* argv[])
 	if(adcY2 < 1000 && CY2 == 0)
     {
         printf("K\n");
-        fprintf(sock, 'K')
+        write(sock, "K\n", 2);
         CY2 = 1;
     }
 
     if(adcY2 > 1000 && CY2 == 1)
     {
         printf("k\n");
-        fprintf(sock, 'k')
+        write(sock, "k\n", 2);
         CY2 = 0;
     }
     
-    delay(200);
+    delay(10);
     }
     return 0;
 }
