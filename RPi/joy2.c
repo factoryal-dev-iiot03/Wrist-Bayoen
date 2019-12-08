@@ -1,6 +1,15 @@
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
 #include <stdio.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 
 #define CS 3
 #define CHANNEL 0
@@ -28,7 +37,7 @@ int readADC(unsigned char adcChannel)
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
     int adcX1=0;
     int adcY1=0;
@@ -44,6 +53,35 @@ int main()
     int CX2 = 0;
     int SY2 = 0;
     int CY2 = 0;
+    int sock;
+
+//**************************************************************************
+
+    struct sockaddr_in serv_addr;
+
+
+    if(argc != 3) {
+        printf("Usage: %s <IP> <port>\n", argv[0]);
+        exit(1);
+    }
+
+    sock = socket(PF_INET, SOCK_STREAM, 0);
+    printf("socket...");
+    if(sock == -1)
+        printf("socket() error");
+    printf("OK\n");
+
+    memset(&serv_addr, 0, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = inet_addr(argv[1]);
+    serv_addr.sin_port = htons(atoi(argv[2]));
+
+    printf("connect...");
+    while(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) == -1)
+        printf("connect() error!");
+    printf("OK\n");
+
+//**************************************************************************
 
     if(wiringPiSetup() == -1)
         return -1;
