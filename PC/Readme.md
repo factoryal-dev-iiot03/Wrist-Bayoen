@@ -9,7 +9,7 @@
 
 * java파일들로 Runnable jar 추출
 
-* Skeleton
+* Skeleton <p>
 Windowed Wropper 선택, Launch java app in the exe process 체크
 
 * Executable 
