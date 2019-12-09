@@ -32,7 +32,6 @@ public class Client extends Thread{
 				
 				capitalizedSentence = clientSentence.toUpperCase() + '\n';
 				outToClient.writeBytes(capitalizedSentence);
-				//this.sleep(10);
 			}while(!clientSentence.equals("-1"));
 			
 			connectionSocket.close();

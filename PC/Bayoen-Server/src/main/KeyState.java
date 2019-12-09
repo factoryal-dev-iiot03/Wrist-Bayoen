@@ -5,11 +5,9 @@ import java.util.Map;
 
 public class KeyState {
 	public static Map<Character, Boolean> map;
-	//static KeyState keyState = new KeyState();
 	
 	public KeyState() {
 		map = new HashMap<>();
-		System.out.println("asdfsdfgsd");
 		
 		map.put('W', false);
 		map.put('A', false);
