@@ -2,38 +2,72 @@ package main;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 public class KeyboardControl {
 	Robot robot;
+	Map<Character, KeyThread> map;
+	KeyState keyState;
+	
 	public KeyboardControl() {
 		try {
 			robot = new Robot();
+			//robot.setAutoDelay(50);
 		} catch(AWTException e) {}
+		
+		keyState = new KeyState();
+		
+		map = new HashMap<>();
+		
+		map.put('W', new KeyThread('W', KeyEvent.VK_UP, keyState));
+		map.put('A', new KeyThread('A', KeyEvent.VK_LEFT, keyState));
+		map.put('S', new KeyThread('S', KeyEvent.VK_DOWN, keyState));
+		map.put('D', new KeyThread('D', KeyEvent.VK_RIGHT, keyState));
+		map.put('F', new KeyThread('F', KeyEvent.VK_ENTER, keyState));
+		map.put('I', new KeyThread('I', KeyEvent.VK_ESCAPE, keyState));
+		map.put('J', new KeyThread('J', KeyEvent.VK_Z, keyState));
+		map.put('K', new KeyThread('K', KeyEvent.VK_UP, keyState));
+		map.put('L', new KeyThread('L', KeyEvent.VK_X, keyState));
+		map.put('H', new KeyThread('H', KeyEvent.VK_SPACE, keyState));
+		
+		for(Thread t : map.values()) {
+			t.start();
+		}
 	}
 	
 	public void control(char signal) {
+		Thread keyHold = null;
 		switch(signal) {
-			case 'W': robot.keyPress(KeyEvent.VK_UP); break;
-			case 'w': robot.keyRelease(KeyEvent.VK_UP); break;
-			case 'A': robot.keyPress(KeyEvent.VK_LEFT); break;
-			case 'a': robot.keyRelease(KeyEvent.VK_LEFT); break;
-			case 'S': robot.keyPress(KeyEvent.VK_DOWN); break;
-			case 's': robot.keyRelease(KeyEvent.VK_DOWN); break;
-			case 'D': robot.keyPress(KeyEvent.VK_RIGHT); break;
-			case 'd': robot.keyRelease(KeyEvent.VK_RIGHT); break;
-			case 'F': robot.keyPress(KeyEvent.VK_ENTER); break;
-			case 'f': robot.keyRelease(KeyEvent.VK_ENTER); break;
-			case 'I': robot.keyPress(KeyEvent.VK_ESCAPE); break;
-			case 'i': robot.keyRelease(KeyEvent.VK_ESCAPE); break;
-			case 'J': robot.keyPress(KeyEvent.VK_Z); break;
-			case 'j': robot.keyRelease(KeyEvent.VK_Z); break;
-			case 'K': robot.keyPress(KeyEvent.VK_K); break;
-			case 'k': robot.keyRelease(KeyEvent.VK_K); break;
-			case 'L': robot.keyPress(KeyEvent.VK_X); break;
-			case 'l': robot.keyRelease(KeyEvent.VK_X); break;
-			case 'H': robot.keyPress(KeyEvent.VK_SPACE); break;
-			case 'h': robot.keyRelease(KeyEvent.VK_SPACE); break;
+			case 'W':
+			case 'A':
+			case 'S':
+			case 'D':
+			case 'F':
+			case 'I':
+			case 'J':
+			case 'K':
+			case 'L':
+			case 'H': KeyState.setState(signal, true); break;
+						
+			case 'w' : 
+			case 'a' : 
+			case 's' : 
+			case 'd' : 
+			case 'f' : 
+			case 'i' : 
+			case 'j' : 
+			case 'k' : 
+			case 'l' : 
+			case 'h' : 
+				KeyState.setState(Character.toUpperCase(signal), false); break;
 			default:return;
+		}
+	}
+	
+	public void keyHold(int keyEvent) {
+		while(true) {
+			robot.keyPress(keyEvent); 
 		}
 	}
 }
