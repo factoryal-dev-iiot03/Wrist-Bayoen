@@ -10,12 +10,12 @@
 * java파일들로 Runnable jar 추출
 
 * Skeleton
-  Windowed Wropper 선택, Launch java app in the exe process 체크
+Windowed Wropper 선택, Launch java app in the exe process 체크
 
 * Executable 
-  Binary - .exe파일로 이름 만들기 
-  Current Directory - 실행파일 추출할 위치 선택
+Binary - .exe파일로 이름 만들기 
+Current Directory - 실행파일 추출할 위치 선택
 
 * Application
-  Embedded jar 에서 Use an embedded jar 체크, jar 선택
-  Classpath에 jar 파일 선택
+Embedded jar 에서 Use an embedded jar 체크, jar 선택
+Classpath에 jar 파일 선택
