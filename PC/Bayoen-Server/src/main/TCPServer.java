@@ -16,6 +16,10 @@ class TCPServer{
 	_SystemTray tray;
 	final int port = 62319;
 	
+	public TCPServer() {
+		this.tray = _SystemTray.getTray();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void start() {
 
@@ -44,10 +48,6 @@ class TCPServer{
 			System.exit(-1);
 		}
 		
-	}
-	
-	public void setTray(_SystemTray _systemTray) {
-		this.tray = _systemTray;
 	}
 	
 	public boolean disconnect() {
