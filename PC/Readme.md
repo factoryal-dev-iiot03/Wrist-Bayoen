@@ -13,9 +13,9 @@
 Windowed Wropper 선택, Launch java app in the exe process 체크
 
 * Executable <p>
-Binary - .exe파일로 이름 만들기 
+Binary - .exe파일로 이름 만들기 <p>
 Current Directory - 실행파일 추출할 위치 선택
 
 * Application <p>
-Embedded jar 에서 Use an embedded jar 체크, jar 선택
+Embedded jar 에서 Use an embedded jar 체크, jar 선택<p>
 Classpath에 jar 파일 선택
