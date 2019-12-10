@@ -13,7 +13,7 @@
 
 #define CS 3
 #define CHANNEL 0
-#define SPEED 1000000
+#define SPEED 500000
 
 int readADC(unsigned char adcChannel)
 {
@@ -39,6 +39,7 @@ int readADC(unsigned char adcChannel)
 
 int main(int argc, char* argv[])
 {
+
     int adcX1=0;
     int adcY1=0;
     int adcX2=0;
@@ -89,6 +90,17 @@ int main(int argc, char* argv[])
     if(wiringPiSPISetup(CHANNEL, SPEED) == -1)
         return -1;
 
+
+    int pinmap[10] = { 1, 4, 5, 6, 10, 11, 26, 27, 28, 29 };
+
+    for(int i = 0; i < 10; i++)
+    {
+        pinMode(pinmap[i], OUTPUT);
+        digitalWrite(pinmap[i], LOW);
+    }
+
+
+
     pinMode(21,INPUT);	
     pinMode(22,INPUT);
     pinMode(CS,OUTPUT);
@@ -102,10 +114,12 @@ int main(int argc, char* argv[])
 	int Lb = digitalRead(21);
 	int Rb = digitalRead(22);
 
+//왼손 버튼
 	if(Lb && Ltb == 1)
 	{
 		printf("f\n");
         write(sock, "f\n", 2);
+        digitalWrite(1,LOW);
 		Ltb = 0;
 	}
 
@@ -113,13 +127,16 @@ int main(int argc, char* argv[])
 	{
 		printf("F\n");
         write(sock, "F\n", 2);
+        digitalWrite(1,HIGH);
 		Ltb = 1;
 	}
 
+//오른손 버튼
 	if(!Rb && Rtb == 0)
 	{
 		printf("H\n");
         write(sock, "H\n", 2);
+        digitalWrite(11,HIGH);
 		Rtb = 1;
 	}
 
@@ -127,125 +144,148 @@ int main(int argc, char* argv[])
 	{
 		printf("h\n");
         write(sock, "h\n", 2);
+        digitalWrite(11,LOW);
 		Rtb = 0;
 	}
 
-	if(adcX1 > 3000 && SX1 == 0)
+//왼손 오른쪽
+	if(adcX1 > 3500 && SX1 == 0)
     {
         printf("D\n");
         write(sock, "D\n", 2);
+        digitalWrite(10,HIGH);
         SX1 = 1;
     }
     
-    if(adcX1 < 3000 && SX1 == 1)
+    if(adcX1 < 3500 && SX1 == 1)
     {
         printf("d\n");
         write(sock, "d\n", 2);
+        digitalWrite(10,LOW);
         SX1 = 0;
     }
 
-
-	if(adcX1 < 1000 && CX1 == 0)	
+//왼손 왼쪽
+	if(adcX1 < 500 && CX1 == 0)	
     {
         printf("A\n");
         write(sock, "A\n", 2);
+        digitalWrite(5,HIGH);
         CX1 =1;
     }
 
-    if( adcX1 > 1000 && CX1 == 1)
+    if( adcX1 > 500 && CX1 == 1)
     {
         printf("a\n");
         write(sock, "a\n", 2);
+        digitalWrite(5,LOW);
         CX1 = 0;
     }
 
-
-	if(adcY1 > 3000 && SY1 == 0)
+//왼손 위쪽
+	if(adcY1 > 3500 && SY1 == 0)
     {
         printf("W\n");
         write(sock, "W\n", 2);
+        digitalWrite(4,HIGH);
         SY1 = 1;
     }
 
-    if( adcY1 < 3000 && SY1 == 1)
+    if( adcY1 < 3500 && SY1 == 1)
     {
         printf("w\n");
         write(sock, "w\n", 2);
+        digitalWrite(4,LOW);
         SY1 = 0;
     }
 
 
-
-	if(adcY1 < 1000 && CY1 == 0)
+//왼손 아래쪽
+	if(adcY1 < 500 && CY1 == 0)
     {
         printf("S\n");
         write(sock, "S\n", 2);
+        digitalWrite(6,HIGH);
         CY1 = 1;
     }
 
-    if(adcY1 > 1000 && CY1 == 1)
+    if(adcY1 > 500 && CY1 == 1)
     {
         printf("s\n");
         write(sock, "s\n", 2);
+        digitalWrite(6,LOW);
         CY1 = 0;
     }
 
-	if(adcX2 > 3000 && SX2 == 0)
+//오른손 오른쪽
+	if(adcX2 > 3500 && SX2 == 0)
     {
         printf("L\n");
         write(sock, "L\n", 2);
+        digitalWrite(29,HIGH);
         SX2 = 1;
     }
 
-    if(adcX2 < 3000 && SX2 == 1)
+    if(adcX2 < 3500 && SX2 == 1)
     {
         printf("l\n");
         write(sock, "l\n", 2);
+        digitalWrite(29,LOW);
         SX2 = 0;
     }
 
-
-	if(adcX2 < 1000 && CX2 == 0)
+//오른손 왼쪽
+	if(adcX2 < 500 && CX2 == 0)
     {
         printf("J\n");
         write(sock, "J\n", 2);
+        digitalWrite(27,HIGH);
         CX2 = 1;
     }
 
-    if(adcX2 > 1000 && CX2 == 1)
+
+
+    if(adcX2 > 500 && CX2 == 1)
     {
         printf("j\n");
         write(sock, "j\n", 2);
+        digitalWrite(27,LOW);
         CX2 = 0;
     }
 
+//오른손 위쪽
 
-	if(adcY2 > 3000 && SY2 == 0)
+	if(adcY2 > 3500 && SY2 == 0)
     {
         printf("I\n");
         write(sock, "I\n", 2);
+        digitalWrite(26,HIGH);
         SY2 = 1;
     }
 
-    if(adcY2 < 3000 && SY2 == 1)
+    if(adcY2 < 3500 && SY2 == 1)
     {
         printf("i\n");
         write(sock, "i\n", 2);
+        digitalWrite(26,LOW);
         SY2 = 0;
     }
 
+//오른손 아래쪽
 
-	if(adcY2 < 1000 && CY2 == 0)
+	if(adcY2 < 500 && CY2 == 0)
     {
         printf("K\n");
         write(sock, "K\n", 2);
+        digitalWrite(28,HIGH);
         CY2 = 1;
     }
 
-    if(adcY2 > 1000 && CY2 == 1)
+    if(adcY2 > 500 && CY2 == 1)
     {
         printf("k\n");
         write(sock, "k\n", 2);
+        digitalWrite(28,LOW);
         CY2 = 0;
     }
     
