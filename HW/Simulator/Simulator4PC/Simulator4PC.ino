@@ -7,12 +7,10 @@ private:
 
     void press_key() {
         os->write(letter);
-        os->write('\n');
     }
 
     void release_key() {
         os->write(letter | 0x20);
-        os->write('\n');
     }
 
 public:
